@@ -4,33 +4,31 @@
   "info": {
     "singularName": "student",
     "pluralName": "students",
-    "displayName": "Student"
+    "displayName": "Student",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
   "attributes": {
     "name": {
-      "type": "string",
-      "minLength": 3,
-      "maxLength": 20,
+      "type": "text",
       "required": true,
-      "unique": true
+      "unique": true,
+      "maxLength": 60,
+      "minLength": 8
     },
-    "mobile": {
-      "type": "string",
-      "minLength": 10,
-      "maxLength": 10,
+    "password": {
+      "type": "password",
       "required": true,
-      "unique": true
+      "maxLength": 15,
+      "minLength": 6
     },
-    "cardId": {
-      "type": "string",
-      "minLength": 13,
+    "card": {
+      "type": "uid",
+      "required": true,
       "maxLength": 13,
-      "required": true,
-      "unique": true
+      "minLength": 13
     }
   }
 }
