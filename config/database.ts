@@ -1,17 +1,22 @@
 import path from 'path';
-import type { Core } from '@strapi/strapi';
-import { isDatabaseClientKind } from '@strapi/database';
 
-const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Database => {
+type ClientKind = 'mysql' | 'postgres' | 'sqlite';
+
+const CLIENT_KINDS: ClientKind[] = ['mysql', 'postgres', 'sqlite'];
+
+const isClientKind = (value: string): value is ClientKind =>
+  CLIENT_KINDS.includes(value as ClientKind);
+
+export default ({ env }: any) => {
   const client = env('DATABASE_CLIENT', 'sqlite');
 
-  if (!isDatabaseClientKind(client)) {
+  if (!isClientKind(client)) {
     throw new Error(
       `Unsupported DATABASE_CLIENT: ${client}. Use "postgres", "mysql", or "sqlite".`
     );
   }
 
-  const connections: Record<Core.Config.Database.ClientKind, Core.Config.Database['connection']> = {
+  const connections: Record<ClientKind, any> = {
     mysql: {
       client: 'mysql',
       connection: {
@@ -68,5 +73,3 @@ const config = ({ env }: Core.Config.Shared.ConfigParams): Core.Config.Database 
     },
   };
 };
-
-export default config;
